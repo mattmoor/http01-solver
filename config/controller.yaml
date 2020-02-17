@@ -1,4 +1,4 @@
-# Copyright 2019 The Knative Authors
+# Copyright 2020 The Knative Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,29 +15,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: controller
-  namespace: knative-samples
+  name: http01-controller
+  namespace: knative-serving
   labels:
-    samples.knative.dev/release: devel
+    serving.knative.dev/release: devel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: controller
+      app: http01-controller
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "false"
       labels:
-        app: controller
-        samples.knative.dev/release: devel
+        app: http01-controller
+        knative.dev/release: devel
     spec:
       serviceAccountName: controller
       containers:
       - name: controller
         # This is the Go import path for the binary that is containerized
         # and substituted here.
-        image: knative.dev/sample-controller/cmd/controller
+        image: github.com/mattmoor/http01-solver/cmd/controller
         resources:
           # Request 2x what we saw running e2e
           requests:
@@ -50,21 +48,34 @@ spec:
         ports:
         - name: metrics
           containerPort: 9090
-        volumeMounts:
-        - name: config-logging
-          mountPath: /etc/config-logging
+        - name: http-challenge
+          containerPort: 8080
         env:
         - name: SYSTEM_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         - name: CONFIG_LOGGING_NAME
           value: config-logging
         - name: CONFIG_OBSERVABILITY_NAME
           value: config-observability
         - name: METRICS_DOMAIN
-          value: knative.dev/samples
-      volumes:
-        - name: config-logging
-          configMap:
-            name: config-logging
+          value: knative.dev/serving
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: challenger
+  namespace: knative-serving
+spec:
+  type: ClusterIP
+  ports:
+  - name: http-challenge
+    port: 80
+    targetPort: 8080
+  selector:
+    app: http01-controller

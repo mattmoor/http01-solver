@@ -17,15 +17,34 @@ limitations under the License.
 package main
 
 import (
-	// The set of controllers this controller process runs.
-	"knative.dev/sample-controller/pkg/reconciler/addressableservice"
+	"context"
+	"log"
+	"net/http"
 
-	// This defines the shared main for injected controllers.
+	"knative.dev/pkg/configmap"
+	"knative.dev/pkg/controller"
 	"knative.dev/pkg/injection/sharedmain"
+	"knative.dev/pkg/signals"
+
+	"github.com/mattmoor/http01-solver/pkg/challenger"
+	"github.com/mattmoor/http01-solver/pkg/reconciler/certificate"
 )
 
 func main() {
-	sharedmain.Main("controller",
-		addressableservice.NewController,
+	ctx := signals.NewContext()
+
+	chlr, err := challenger.New(ctx)
+	if err != nil {
+		log.Fatalf("Error creating challenger: %v", err)
+	}
+
+	go http.ListenAndServe(":8080", chlr)
+
+	sharedmain.MainWithContext(
+		ctx,
+		"controller",
+		func(ctx context.Context, cmw configmap.Watcher) *controller.Impl {
+			return certificate.NewController(ctx, cmw, chlr)
+		},
 	)
 }

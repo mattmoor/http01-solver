@@ -1,14 +1,5 @@
-# Knative Sample Controller
+# Knative Certificate Controller
 
-[![GoDoc](https://godoc.org/knative.dev/sample-controller?status.svg)](https://godoc.org/knative.dev/sample-controller)
-[![Go Report Card](https://goreportcard.com/badge/knative/sample-controller)](https://goreportcard.com/report/knative/sample-controller)
-
-Knative `sample-controller` defines a few simple resources that are validated by
-webhook and managed by a controller to demonstrate the canonical style in which
-Knative writes controllers.
-
-To learn more about Knative, please visit our
-[Knative docs](https://github.com/knative/docs) repository.
-
-If you are interested in contributing, see [CONTRIBUTING.md](./CONTRIBUTING.md)
-and [DEVELOPMENT.md](./DEVELOPMENT.md).
+This repository contains an implementation of the Knative Certificate
+abstraction.  Certificates are produced using the HTTP01 ACME challenge
+using Let's Encrypt.
