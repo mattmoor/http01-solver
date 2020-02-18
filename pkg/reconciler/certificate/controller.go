@@ -31,10 +31,10 @@ import (
 	configmap "knative.dev/pkg/configmap"
 	controller "knative.dev/pkg/controller"
 	logging "knative.dev/pkg/logging"
+	"knative.dev/pkg/reconciler"
 	"knative.dev/serving/pkg/apis/networking"
 	certificate "knative.dev/serving/pkg/client/injection/informers/networking/v1alpha1/certificate"
 	v1alpha1certificate "knative.dev/serving/pkg/client/injection/reconciler/networking/v1alpha1/certificate"
-	"knative.dev/serving/pkg/reconciler"
 )
 
 const CertificateClassName = "mattmoor-http01.certificate.networking.internal.knative.dev"

@@ -1020,22 +1020,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3dcce77ab2e9e7f9b7c9c04bc543897009c2adc12c0f9621127738a7885b474f"
-  name = "knative.dev/caching"
-  packages = [
-    "pkg/apis/caching",
-    "pkg/apis/caching/v1alpha1",
-    "pkg/client/clientset/versioned",
-    "pkg/client/clientset/versioned/scheme",
-    "pkg/client/clientset/versioned/typed/caching/v1alpha1",
-    "pkg/client/injection/client",
-  ]
-  pruneopts = "NUT"
-  revision = "22994af264aa347802d19d306403acf4c9623e0e"
-
-[[projects]]
-  branch = "master"
-  digest = "1:e71caa2e846cf80d5c362a7189f6a9276f8d60b96dd95b52a11ac321270098f6"
+  digest = "1:6e2169542b76688fe02763aee6b53dedc9d71acb8608705393c4230ffae94e68"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1046,6 +1031,9 @@
     "apis/testing/fuzzer",
     "changeset",
     "client/injection/kube/client",
+    "client/injection/kube/informers/core/v1/endpoints",
+    "client/injection/kube/informers/core/v1/secret",
+    "client/injection/kube/informers/core/v1/service",
     "client/injection/kube/informers/factory",
     "codegen/cmd/injection-gen",
     "codegen/cmd/injection-gen/args",
@@ -1053,7 +1041,6 @@
     "configmap",
     "controller",
     "injection",
-    "injection/clients/dynamicclient",
     "injection/sharedmain",
     "kmeta",
     "kmp",
@@ -1073,11 +1060,11 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "602d92f69b660a5a84cbe96a9be21723f6f52d3d"
+  revision = "1cc7b7152937735a29c9d6fdaf3b244684aa850e"
 
 [[projects]]
   branch = "master"
-  digest = "1:9d5fcc0cabee5a4a144ef63271ddac33eb9c8ba218d6643fde17fe5a5c544197"
+  digest = "1:b03b9a0922aa6ac89db2df98e1f55694999e031fb884be3e79d73692833a1588"
   name = "knative.dev/serving"
   packages = [
     "pkg/apis/autoscaling",
@@ -1117,11 +1104,10 @@
     "pkg/client/listers/serving/v1beta1",
     "pkg/gc",
     "pkg/network",
-    "pkg/reconciler",
     "pkg/reconciler/route/config",
   ]
   pruneopts = "NUT"
-  revision = "4737a3ea42538d876237ee4d5b87e0216a974bb7"
+  revision = "0c6284e24b867de5d27d18da33f272b3a73dca96"
 
 [[projects]]
   branch = "master"
@@ -1146,24 +1132,41 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "golang.org/x/crypto/acme",
     "golang.org/x/crypto/acme/autocert",
+    "golang.org/x/sync/errgroup",
+    "k8s.io/api/core/v1",
+    "k8s.io/api/discovery/v1alpha1",
+    "k8s.io/apimachinery/pkg/api/equality",
+    "k8s.io/apimachinery/pkg/api/errors",
+    "k8s.io/apimachinery/pkg/apis/meta/v1",
+    "k8s.io/apimachinery/pkg/util/intstr",
+    "k8s.io/apimachinery/pkg/util/sets",
+    "k8s.io/client-go/kubernetes",
+    "k8s.io/client-go/listers/core/v1",
     "k8s.io/client-go/tools/cache",
     "k8s.io/code-generator/cmd/client-gen",
     "k8s.io/code-generator/cmd/deepcopy-gen",
     "k8s.io/code-generator/cmd/defaulter-gen",
     "k8s.io/code-generator/cmd/informer-gen",
     "k8s.io/code-generator/cmd/lister-gen",
+    "knative.dev/pkg/apis",
+    "knative.dev/pkg/client/injection/kube/client",
+    "knative.dev/pkg/client/injection/kube/informers/core/v1/endpoints",
+    "knative.dev/pkg/client/injection/kube/informers/core/v1/secret",
+    "knative.dev/pkg/client/injection/kube/informers/core/v1/service",
     "knative.dev/pkg/codegen/cmd/injection-gen",
     "knative.dev/pkg/configmap",
     "knative.dev/pkg/controller",
     "knative.dev/pkg/injection/sharedmain",
+    "knative.dev/pkg/kmeta",
     "knative.dev/pkg/logging",
     "knative.dev/pkg/reconciler",
+    "knative.dev/pkg/signals",
     "knative.dev/serving/pkg/apis/networking",
     "knative.dev/serving/pkg/apis/networking/v1alpha1",
     "knative.dev/serving/pkg/client/injection/informers/networking/v1alpha1/certificate",
     "knative.dev/serving/pkg/client/injection/reconciler/networking/v1alpha1/certificate",
-    "knative.dev/serving/pkg/reconciler",
     "knative.dev/test-infra/scripts",
     "knative.dev/test-infra/tools/dep-collector",
   ]

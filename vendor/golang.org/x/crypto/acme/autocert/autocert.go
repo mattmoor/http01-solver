@@ -23,7 +23,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	mathrand "math/rand"
 	"net"
 	"net/http"
@@ -273,7 +272,6 @@ func (m *Manager) GetCertificate(hello *tls.ClientHelloInfo) (*tls.Certificate, 
 
 	// Check whether this is a token cert requested for TLS-ALPN challenge.
 	if wantsTokenCert(hello) {
-		log.Printf("doing TLS-ALPN stuff.")
 		m.challengeMu.RLock()
 		defer m.challengeMu.RUnlock()
 		if cert := m.certTokens[name]; cert != nil {
@@ -293,7 +291,6 @@ func (m *Manager) GetCertificate(hello *tls.ClientHelloInfo) (*tls.Certificate, 
 	}
 	cert, err := m.cert(ctx, ck)
 	if err == nil {
-		log.Printf("cache hit.")
 		return cert, nil
 	}
 	if err != ErrCacheMiss {
@@ -304,7 +301,6 @@ func (m *Manager) GetCertificate(hello *tls.ClientHelloInfo) (*tls.Certificate, 
 	if err := m.hostPolicy()(ctx, name); err != nil {
 		return nil, err
 	}
-	log.Printf("creating cert.")
 	cert, err = m.createCert(ctx, ck)
 	if err != nil {
 		return nil, err
@@ -397,7 +393,6 @@ func (m *Manager) HTTPHandler(fallback http.Handler) http.Handler {
 			fallback.ServeHTTP(w, r)
 			return
 		}
-		log.Printf("In HandlerFunc for challenge!!!")
 		// A reasonable context timeout for cache and host policy only,
 		// because we don't wait for a new certificate issuance here.
 		ctx, cancel := context.WithTimeout(r.Context(), time.Minute)
@@ -659,9 +654,6 @@ func (m *Manager) authorizedCert(ctx context.Context, key crypto.Signer, ck cert
 	if err != nil {
 		return nil, nil, err
 	}
-
-	log.Printf("certificate request %+v", csr)
-
 	dir, err := client.Discover(ctx)
 	if err != nil {
 		return nil, nil, err
@@ -772,7 +764,6 @@ func (m *Manager) verifyRFC(ctx context.Context, client *acme.Client, domain str
 	nextTyp := 0 // challengeTypes index
 AuthorizeOrderLoop:
 	for {
-		log.Printf("about to authorize order")
 		o, err := client.AuthorizeOrder(ctx, acme.DomainIDs(domain))
 		if err != nil {
 			return nil, err
@@ -849,7 +840,7 @@ func pickChallenge(typ string, chal []*acme.Challenge) *acme.Challenge {
 func (m *Manager) supportedChallengeTypes() []string {
 	m.challengeMu.RLock()
 	defer m.challengeMu.RUnlock()
-	typ := []string{} //"tls-alpn-01"}
+	typ := []string{"tls-alpn-01"}
 	if m.tryHTTP01 {
 		typ = append(typ, "http-01")
 	}
