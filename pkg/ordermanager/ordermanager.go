@@ -62,7 +62,7 @@ func New(ctx context.Context, cb OrderUpCallback, chlr challenger.Interface) (In
 	}
 	a := &acme.Account{Contact: []string{}}
 	client := &acme.Client{
-		DirectoryURL: Staging,
+		DirectoryURL: Production, // Staging,
 		UserAgent:    "github.com/mattmoor/http01-solver",
 		Key:          acctKey,
 	}
