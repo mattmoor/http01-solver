@@ -27,6 +27,27 @@ import (
 	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
+var (
+	serviceSpec = corev1.ServiceSpec{
+		Ports: []corev1.ServicePort{{
+			Name:       "http-challenge",
+			Port:       80,
+			TargetPort: intstr.FromInt(8080),
+		}},
+	}
+
+	endpointSubsets = []corev1.EndpointSubset{{
+		Addresses: []corev1.EndpointAddress{{
+			IP: os.Getenv("POD_IP"),
+		}},
+		Ports: []corev1.EndpointPort{{
+			Name:     "http-challenge",
+			Port:     8080,
+			Protocol: corev1.ProtocolTCP,
+		}},
+	}}
+)
+
 // MakeService creates a Service, which we will point at ourselves.
 func MakeService(o *v1alpha1.Certificate) *corev1.Service {
 	return &corev1.Service{
@@ -35,13 +56,7 @@ func MakeService(o *v1alpha1.Certificate) *corev1.Service {
 			Namespace:       o.Namespace,
 			OwnerReferences: []metav1.OwnerReference{*kmeta.NewControllerRef(o)},
 		},
-		Spec: corev1.ServiceSpec{
-			Ports: []corev1.ServicePort{{
-				Name:       "http-challenge",
-				Port:       80,
-				TargetPort: intstr.FromInt(8080),
-			}},
-		},
+		Spec: serviceSpec,
 	}
 }
 
@@ -53,15 +68,6 @@ func MakeEndpoints(o *v1alpha1.Certificate) *corev1.Endpoints {
 			Namespace:       o.Namespace,
 			OwnerReferences: []metav1.OwnerReference{*kmeta.NewControllerRef(o)},
 		},
-		Subsets: []corev1.EndpointSubset{{
-			Addresses: []corev1.EndpointAddress{{
-				IP: os.Getenv("POD_IP"),
-			}},
-			Ports: []corev1.EndpointPort{{
-				Name:     "http-challenge",
-				Port:     8080,
-				Protocol: corev1.ProtocolTCP,
-			}},
-		}},
+		Subsets: endpointSubsets,
 	}
 }

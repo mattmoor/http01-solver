@@ -77,6 +77,8 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, o *v1alpha1.Certificate)
 	}
 
 	// Don't let the OrderManager hang on client calls.
+	// We don't "cancel" this context, because it is passed
+	// to Go routines that extend pass this function's return.
 	ctx, _ = context.WithTimeout(ctx, 5*time.Minute)
 
 	chall, cert, err := r.orderManager.Order(ctx, o.Spec.DNSNames, o)

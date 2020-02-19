@@ -54,6 +54,12 @@ const (
 	Production = autocert.DefaultACMEDirectory
 )
 
+var (
+	// Endpoint is the ACME API to use, it defaults to Production, but
+	// can be pointed at Staging or other compatible endpoints.
+	Endpoint = Production
+)
+
 // New creates a new OrderManager.
 func New(ctx context.Context, cb OrderUpCallback, chlr challenger.Interface) (Interface, error) {
 	acctKey, err := ecdsa.GenerateKey(elliptic.P256(), cryptorand.Reader)
@@ -62,7 +68,7 @@ func New(ctx context.Context, cb OrderUpCallback, chlr challenger.Interface) (In
 	}
 	a := &acme.Account{Contact: []string{}}
 	client := &acme.Client{
-		DirectoryURL: Production, // Staging,
+		DirectoryURL: Endpoint,
 		UserAgent:    "github.com/mattmoor/http01-solver",
 		Key:          acctKey,
 	}
