@@ -89,9 +89,9 @@ func MakeSecret(o *v1alpha1.Certificate, cert *tls.Certificate) (*corev1.Secret,
 			OwnerReferences: []metav1.OwnerReference{*kmeta.NewControllerRef(o)},
 		},
 		Type: corev1.SecretTypeTLS,
-		StringData: map[string]string{
-			corev1.TLSCertKey:       certPEM.String(),
-			corev1.TLSPrivateKeyKey: privPEM.String(),
+		Data: map[string][]byte{
+			corev1.TLSCertKey:       certPEM.Bytes(),
+			corev1.TLSPrivateKeyKey: privPEM.Bytes(),
 		},
 	}, nil
 }

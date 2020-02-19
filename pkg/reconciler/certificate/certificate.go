@@ -109,8 +109,7 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, o *v1alpha1.Certificate)
 			}
 		} else {
 			secret := secret.DeepCopy()
-			secret.Data = nil
-			secret.StringData = wantSecret.StringData
+			secret.Data = wantSecret.Data
 			if secret, err = r.kubeClient.CoreV1().Secrets(secret.Namespace).Update(secret); err != nil {
 				return err
 			}

@@ -49,8 +49,8 @@ var (
 )
 
 // MakeService creates a Service, which we will point at ourselves.
-func MakeService(o *v1alpha1.Certificate) *corev1.Service {
-	return &corev1.Service{
+func MakeService(o *v1alpha1.Certificate, opts ...func(*corev1.Service)) *corev1.Service {
+	svc := &corev1.Service{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:            o.Name,
 			Namespace:       o.Namespace,
@@ -58,11 +58,15 @@ func MakeService(o *v1alpha1.Certificate) *corev1.Service {
 		},
 		Spec: serviceSpec,
 	}
+	for _, opt := range opts {
+		opt(svc)
+	}
+	return svc
 }
 
 // MakeEndpoints creates an Endpoints, which we will point at ourselves.
-func MakeEndpoints(o *v1alpha1.Certificate) *corev1.Endpoints {
-	return &corev1.Endpoints{
+func MakeEndpoints(o *v1alpha1.Certificate, opts ...func(*corev1.Endpoints)) *corev1.Endpoints {
+	ep := &corev1.Endpoints{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:            o.Name,
 			Namespace:       o.Namespace,
@@ -70,4 +74,8 @@ func MakeEndpoints(o *v1alpha1.Certificate) *corev1.Endpoints {
 		},
 		Subsets: endpointSubsets,
 	}
+	for _, opt := range opts {
+		opt(ep)
+	}
+	return ep
 }

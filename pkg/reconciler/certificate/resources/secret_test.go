@@ -97,9 +97,9 @@ func TestMakeSecret(t *testing.T) {
 				}},
 			},
 			Type: corev1.SecretTypeTLS,
-			StringData: map[string]string{
-				corev1.TLSCertKey:       "-----BEGIN CERTIFICATE-----\nZ2FyYmFnZQ==\n-----END CERTIFICATE-----\n",
-				corev1.TLSPrivateKeyKey: "",
+			Data: map[string][]byte{
+				corev1.TLSCertKey:       []byte("-----BEGIN CERTIFICATE-----\nZ2FyYmFnZQ==\n-----END CERTIFICATE-----\n"),
+				corev1.TLSPrivateKeyKey: []byte(""),
 			},
 		},
 	}}
@@ -115,13 +115,13 @@ func TestMakeSecret(t *testing.T) {
 			case err != nil:
 				t.Errorf("MakeSecret() = %v", err)
 			default:
-				if _, ok := got.StringData[corev1.TLSPrivateKeyKey]; !ok {
+				if _, ok := got.Data[corev1.TLSPrivateKeyKey]; !ok {
 					t.Errorf("Secret is missing key: %s", corev1.TLSPrivateKeyKey)
 				} else {
 					// TODO(mattmoor): Further validate the private key?
 				}
 				// Clear it out, it's going to change every time.
-				got.StringData[corev1.TLSPrivateKeyKey] = ""
+				got.Data[corev1.TLSPrivateKeyKey] = []byte("")
 
 				if !cmp.Equal(got, test.want) {
 					t.Errorf("MakeSecret (-want, +got) = %s", cmp.Diff(got, test.want))
