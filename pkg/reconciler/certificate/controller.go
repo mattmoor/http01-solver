@@ -37,7 +37,7 @@ import (
 	v1alpha1certificate "knative.dev/serving/pkg/client/injection/reconciler/networking/v1alpha1/certificate"
 )
 
-const CertificateClassName = "mattmoor-http01.certificate.networking.internal.knative.dev"
+const CertificateClassName = "mattmoor-http01.certificate.networking.knative.dev"
 
 // NewController creates a Reconciler for Certificate and returns the result of NewImpl.
 func NewController(
