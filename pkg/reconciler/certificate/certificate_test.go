@@ -378,7 +378,7 @@ func TestReconcileMakingOrders(t *testing.T) {
 		}
 
 		return certreconciler.NewReconciler(ctx, logging.FromContext(ctx), servingclient.Get(ctx),
-			listers.GetCertificateLister(), controller.GetEventRecorder(ctx), r)
+			listers.GetCertificateLister(), controller.GetEventRecorder(ctx), r, CertificateClassName)
 	}))
 }
 
@@ -423,7 +423,7 @@ func TestReconcileOrderError(t *testing.T) {
 		}
 
 		return certreconciler.NewReconciler(ctx, logging.FromContext(ctx), servingclient.Get(ctx),
-			listers.GetCertificateLister(), controller.GetEventRecorder(ctx), r)
+			listers.GetCertificateLister(), controller.GetEventRecorder(ctx), r, CertificateClassName)
 	}))
 }
 
@@ -596,7 +596,7 @@ func TestReconcileOrderFulfillment(t *testing.T) {
 		}
 
 		return certreconciler.NewReconciler(ctx, logging.FromContext(ctx), servingclient.Get(ctx),
-			listers.GetCertificateLister(), controller.GetEventRecorder(ctx), r)
+			listers.GetCertificateLister(), controller.GetEventRecorder(ctx), r, CertificateClassName)
 	}))
 }
 

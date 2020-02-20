@@ -58,7 +58,7 @@ func NewController(
 		serviceLister:   serviceInformer.Lister(),
 		endpointsLister: endpointsInformer.Lister(),
 	}
-	impl := v1alpha1certificate.NewImpl(ctx, r)
+	impl := v1alpha1certificate.NewImpl(ctx, r, CertificateClassName)
 
 	logger.Info("Setting up event handlers.")
 

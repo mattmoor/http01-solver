@@ -128,14 +128,6 @@
   version = "v4.2.0"
 
 [[projects]]
-  digest = "1:81466b4218bf6adddac2572a30ac733a9255919bc2f470b4827a317bd4ee1756"
-  name = "github.com/ghodss/yaml"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
-  version = "v1.0.0"
-
-[[projects]]
   digest = "1:b38ab1b8cf42d089d9f31d4918c57c2dd47d42f3e7fc50e12142140228cf81a9"
   name = "github.com/gogo/protobuf"
   packages = [
@@ -467,14 +459,13 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7f857c743b73800b187068d383071cbb28020958089ba0e47d80f4d4a76ff7ad"
+  digest = "1:274c2fa94d93c89fb107c18f715732390bcc4cf337d8d82cdeee5d92d162ff14"
   name = "golang.org/x/net"
   packages = [
     "context",
     "context/ctxhttp",
     "http/httpguts",
     "http2",
-    "http2/h2c",
     "http2/hpack",
     "idna",
     "internal/timeseries",
@@ -1127,7 +1118,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6e2169542b76688fe02763aee6b53dedc9d71acb8608705393c4230ffae94e68"
+  digest = "1:ceca4d735703c4069168dffb1aaa8ad415b5456142fe431b0d6dfe525cb2a5b0"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1163,7 +1154,6 @@
     "logging/testing",
     "metrics",
     "metrics/metricskey",
-    "network",
     "profiling",
     "ptr",
     "reconciler",
@@ -1177,11 +1167,11 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "1cc7b7152937735a29c9d6fdaf3b244684aa850e"
+  revision = "a81f50a34e9579ce8bfde9e90ffebe11b489c60f"
 
 [[projects]]
   branch = "master"
-  digest = "1:6198e03f178167e1ac6406efd624046ec06f381fb815131a9b4f3748d54c9a99"
+  digest = "1:cd1dc196cfc128ceb8da8186c4570f0771ad7f32c1b9417a752cedf6b77dd6ba"
   name = "knative.dev/serving"
   packages = [
     "pkg/apis/autoscaling",
@@ -1247,14 +1237,11 @@
     "pkg/client/listers/serving/v1",
     "pkg/client/listers/serving/v1alpha1",
     "pkg/client/listers/serving/v1beta1",
-    "pkg/gc",
-    "pkg/network",
     "pkg/reconciler",
-    "pkg/reconciler/route/config",
     "pkg/reconciler/testing/v1alpha1",
   ]
   pruneopts = "NUT"
-  revision = "0c6284e24b867de5d27d18da33f272b3a73dca96"
+  revision = "bbced7bce45bc7db0f5f37d0dc16ca9d36880e22"
 
 [[projects]]
   branch = "master"
