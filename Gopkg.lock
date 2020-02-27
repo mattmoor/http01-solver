@@ -762,7 +762,7 @@
   version = "v0.17.2"
 
 [[projects]]
-  digest = "1:8e2b7c4ef17568bbcb7e9dd15f6f60a7ca46c31ea40f9c725c5116dc4e649262"
+  digest = "1:5c34ecf93f44c70f40f7eb45445442ce400affcb1ada78cf3b02d2c4bb652776"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/apitesting/fuzzer",
@@ -803,6 +803,7 @@
     "pkg/util/runtime",
     "pkg/util/sets",
     "pkg/util/strategicpatch",
+    "pkg/util/uuid",
     "pkg/util/validation",
     "pkg/util/validation/field",
     "pkg/util/wait",
@@ -817,7 +818,7 @@
   version = "kubernetes-1.16.4"
 
 [[projects]]
-  digest = "1:9542c06182fde4ed856e83aabbe5c8f7d61ae05fa4045b3907d4b7aefd79b18c"
+  digest = "1:364aa5bd7fbb75ef29a472cd7b36ebfa8d288017a3d59bb57bb0fd855adfbc13"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
@@ -1005,6 +1006,8 @@
     "tools/clientcmd/api",
     "tools/clientcmd/api/latest",
     "tools/clientcmd/api/v1",
+    "tools/leaderelection",
+    "tools/leaderelection/resourcelock",
     "tools/metrics",
     "tools/pager",
     "tools/record",
@@ -1118,7 +1121,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:82eaafe1b10a648afe37de603c6d9f4fe69fb5c129ecc832a5997335f3a0ee89"
+  digest = "1:1829518da17f4803e337ca56334ef7c887a9677f28081f7176bf15e2d3bb64d1"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1149,6 +1152,7 @@
     "injection/sharedmain",
     "kmeta",
     "kmp",
+    "leaderelection",
     "logging",
     "logging/logkey",
     "logging/testing",
@@ -1167,7 +1171,7 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "7af3fab62ce2bf2f861fee510eeb15eccb47925e"
+  revision = "ca35cb8791d737c06c13fc4c972b18f08647f732"
 
 [[projects]]
   branch = "master"
@@ -1240,7 +1244,7 @@
     "pkg/reconciler/testing/v1alpha1",
   ]
   pruneopts = "NUT"
-  revision = "744090c517077e65c6d806357532d96507a6b0b9"
+  revision = "19b0417d4f8d0dcc5dbb9be7a85f134f65cce9c2"
 
 [[projects]]
   branch = "master"
@@ -1251,7 +1255,7 @@
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "01760e2303d6a17936658f155004da3019d0f43c"
+  revision = "b3fc723351c34f03515ee548a5c4ff021e7f544d"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
