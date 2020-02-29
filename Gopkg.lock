@@ -762,7 +762,7 @@
   version = "v0.17.2"
 
 [[projects]]
-  digest = "1:8e2b7c4ef17568bbcb7e9dd15f6f60a7ca46c31ea40f9c725c5116dc4e649262"
+  digest = "1:5c34ecf93f44c70f40f7eb45445442ce400affcb1ada78cf3b02d2c4bb652776"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/apitesting/fuzzer",
@@ -803,6 +803,7 @@
     "pkg/util/runtime",
     "pkg/util/sets",
     "pkg/util/strategicpatch",
+    "pkg/util/uuid",
     "pkg/util/validation",
     "pkg/util/validation/field",
     "pkg/util/wait",
@@ -817,7 +818,7 @@
   version = "kubernetes-1.16.4"
 
 [[projects]]
-  digest = "1:9542c06182fde4ed856e83aabbe5c8f7d61ae05fa4045b3907d4b7aefd79b18c"
+  digest = "1:364aa5bd7fbb75ef29a472cd7b36ebfa8d288017a3d59bb57bb0fd855adfbc13"
   name = "k8s.io/client-go"
   packages = [
     "discovery",
@@ -1005,6 +1006,8 @@
     "tools/clientcmd/api",
     "tools/clientcmd/api/latest",
     "tools/clientcmd/api/v1",
+    "tools/leaderelection",
+    "tools/leaderelection/resourcelock",
     "tools/metrics",
     "tools/pager",
     "tools/record",
@@ -1118,7 +1121,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:82eaafe1b10a648afe37de603c6d9f4fe69fb5c129ecc832a5997335f3a0ee89"
+  digest = "1:5a1686615370a9501192d7bd36dd8cee47e73d56c3576dee4737dd9db5c01d7d"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1149,6 +1152,7 @@
     "injection/sharedmain",
     "kmeta",
     "kmp",
+    "leaderelection",
     "logging",
     "logging/logkey",
     "logging/testing",
@@ -1167,11 +1171,11 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "7af3fab62ce2bf2f861fee510eeb15eccb47925e"
+  revision = "2fe8db30007231e4157929b781ad457f371e422d"
 
 [[projects]]
   branch = "master"
-  digest = "1:0387b16033abb038a27790226e178e141d4fe6b5411474719793619ec93ff18e"
+  digest = "1:021e7884883049c65a0577d7c95f09addf8a858bf8f0faa77df70cdf4776bbed"
   name = "knative.dev/serving"
   packages = [
     "pkg/apis/autoscaling",
@@ -1183,6 +1187,7 @@
     "pkg/apis/serving/v1",
     "pkg/apis/serving/v1alpha1",
     "pkg/apis/serving/v1beta1",
+    "pkg/autoscaler/config",
     "pkg/client/certmanager/clientset/versioned",
     "pkg/client/certmanager/clientset/versioned/fake",
     "pkg/client/certmanager/clientset/versioned/scheme",
@@ -1240,7 +1245,7 @@
     "pkg/reconciler/testing/v1alpha1",
   ]
   pruneopts = "NUT"
-  revision = "744090c517077e65c6d806357532d96507a6b0b9"
+  revision = "6cc212baf0d20164b45063ab4207f4ad6d7d4bb9"
 
 [[projects]]
   branch = "master"
@@ -1251,7 +1256,7 @@
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "01760e2303d6a17936658f155004da3019d0f43c"
+  revision = "8c4b7ba9225ef684492032fb787f5f99d021545d"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
