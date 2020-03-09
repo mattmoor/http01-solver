@@ -1121,7 +1121,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5a1686615370a9501192d7bd36dd8cee47e73d56c3576dee4737dd9db5c01d7d"
+  digest = "1:af30f32b9caae9e7c28eb5223eef83b00f0b47b6dc0b2d3838f3c3204d50d23e"
   name = "knative.dev/pkg"
   packages = [
     "apis",
@@ -1171,10 +1171,9 @@
     "webhook/certificates/resources",
   ]
   pruneopts = "T"
-  revision = "2fe8db30007231e4157929b781ad457f371e422d"
+  revision = "d1665814487e0f9a731e1874fce8d318918622f1"
 
 [[projects]]
-  branch = "master"
   digest = "1:021e7884883049c65a0577d7c95f09addf8a858bf8f0faa77df70cdf4776bbed"
   name = "knative.dev/serving"
   packages = [
@@ -1245,18 +1244,19 @@
     "pkg/reconciler/testing/v1alpha1",
   ]
   pruneopts = "NUT"
-  revision = "6cc212baf0d20164b45063ab4207f4ad6d7d4bb9"
+  revision = "804b3bb854ea94a17f4348f8afca48c8b413c566"
+  version = "v0.13.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:e7ea104eff9c91ce48f1730ab8b4098faa1ea519162ccbbbca68c205428f0e21"
+  digest = "1:dd8432987142e8a917e58bac0137c287f54399fa68b0760936d52dce04eb639b"
   name = "knative.dev/test-infra"
   packages = [
     "scripts",
     "tools/dep-collector",
   ]
   pruneopts = "UT"
-  revision = "8c4b7ba9225ef684492032fb787f5f99d021545d"
+  revision = "49c52045657f611c1f7da8c24cf47418e05bff3a"
 
 [[projects]]
   digest = "1:8730e0150dfb2b7e173890c8b9868e7a273082ef8e39f4940e3506a481cf895c"
