@@ -70,7 +70,7 @@ func main() {
 	// When the callback indicates that the certificate is ready, continue.
 	select {
 	case <-ready:
-	case <-time.After(10 * time.Second):
+	case <-time.After(1 * time.Minute):
 		log.Fatal("Timed out waiting for ready signal.")
 	}
 
