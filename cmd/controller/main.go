@@ -31,6 +31,9 @@ import (
 )
 
 func main() {
+	// Uncomment this to use the Let's Encrypt Staging environment.
+	// ordermanager.Endpoint = ordermanager.Staging
+
 	ctx := signals.NewContext()
 
 	chlr, err := challenger.New(ctx)

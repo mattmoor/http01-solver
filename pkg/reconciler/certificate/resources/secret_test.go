@@ -41,6 +41,38 @@ func TestMakeSecret(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ecdsa.GenerateKey() = %v", err)
 	}
+	serialNumberLimit := new(big.Int).Lsh(big.NewInt(1), 128)
+	serialNumber, err := cryptorand.Int(cryptorand.Reader, serialNumberLimit)
+	if err != nil {
+		t.Fatalf("Failed to generate serial number: %v", err)
+	}
+	template := x509.Certificate{
+		SerialNumber: serialNumber,
+		Subject: pkix.Name{
+			Organization: []string{"Knative Ingress Conformance Testing"},
+		},
+
+		// Only let it live briefly.
+		NotBefore: time.Now(),
+		NotAfter:  time.Now().Add(5 * time.Minute),
+
+		IsCA:                  true,
+		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
+		ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+		BasicConstraintsValid: true,
+		DNSNames:              []string{"example.com"},
+	}
+	derBytes, err := x509.CreateCertificate(cryptorand.Reader, &template, &template, &priv.PublicKey, priv)
+	if err != nil {
+		t.Fatalf("x509.CreateCertificate() = %v", err)
+	}
+	der := [][]byte{derBytes}
+
+	certPEM := &bytes.Buffer{}
+	if err := pem.Encode(certPEM, &pem.Block{Type: "CERTIFICATE", Bytes: derBytes}); err != nil {
+		t.Fatalf("pem.Encode() = %v", err)
+	}
+	result := certPEM.Bytes()
 
 	tests := []struct {
 		name string
@@ -61,8 +93,9 @@ func TestMakeSecret(t *testing.T) {
 			},
 		},
 		cert: &tls.Certificate{
+			Certificate: der,
 			Leaf: &x509.Certificate{
-				Raw: []byte("garbage"),
+				Raw: derBytes,
 			},
 			PrivateKey: nil,
 		},
@@ -79,8 +112,9 @@ func TestMakeSecret(t *testing.T) {
 			},
 		},
 		cert: &tls.Certificate{
+			Certificate: der,
 			Leaf: &x509.Certificate{
-				Raw: []byte("garbage"),
+				Raw: derBytes,
 			},
 			PrivateKey: priv,
 		},
@@ -98,7 +132,7 @@ func TestMakeSecret(t *testing.T) {
 			},
 			Type: corev1.SecretTypeTLS,
 			Data: map[string][]byte{
-				corev1.TLSCertKey:       []byte("-----BEGIN CERTIFICATE-----\nZ2FyYmFnZQ==\n-----END CERTIFICATE-----\n"),
+				corev1.TLSCertKey:       result,
 				corev1.TLSPrivateKeyKey: []byte(""),
 			},
 		},

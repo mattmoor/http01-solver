@@ -700,8 +700,9 @@ func makeTLSCert(t *testing.T, domains []string, expiry time.Time) *tls.Certific
 	}
 
 	return &tls.Certificate{
-		Leaf:       cert,
-		PrivateKey: priv,
+		Certificate: [][]byte{derBytes},
+		Leaf:        cert,
+		PrivateKey:  priv,
 	}
 }
 
